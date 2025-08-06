@@ -186,6 +186,12 @@ void show_popup_slider(enum ACTION action, int rx, double min, double max, doubl
     scale_max = max;
     scale_wid = max - min;
     scale_dialog = gtk_dialog_new_with_buttons(title, GTK_WINDOW(top_window), GTK_DIALOG_DESTROY_WITH_PARENT, NULL, NULL);
+    
+    // Dialog Contents are now 50% Opaque 
+    // TODO - Wire up to selector in screen menu (Someday).
+    gtk_window_set_opacity(GTK_WINDOW(scale_dialog), 0.5);
+    
+
     GtkWidget *content = gtk_dialog_get_content_area(GTK_DIALOG(scale_dialog));
     popup_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, min, max, delta);
     gtk_widget_set_name(popup_scale, "popup_scale");
@@ -543,7 +549,7 @@ void sliders_squelch(int id) {
     if (squelch_signal_id) { g_signal_handler_unblock(G_OBJECT(squelch_scale), squelch_signal_id); }
   } else {
     char title[64];
-    snprintf(title, sizeof(title), "Squelch RX%d (Hz)", id + 1);
+    snprintf(title, sizeof(title), "Squelch RX%d", id + 1);
     show_popup_slider(SQUELCH, id, 0.0, 100.0, 1.0, rx->squelch, title);
   }
 }
