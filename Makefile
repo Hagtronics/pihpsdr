@@ -442,6 +442,7 @@ PROGRAM=pihpsdr
 ##############################################################################
 
 SOURCES= \
+src/bias_t_menu.c \
 src/MacOS.c \
 src/about_menu.c \
 src/actions.c \
@@ -530,6 +531,7 @@ src/zoompan.c
 ##############################################################################
 
 HEADERS= \
+src/bias_t_menu.h \
 src/MacOS.h \
 src/about_menu.h \
 src/actions.h \
@@ -623,6 +625,7 @@ src/zoompan.h
 ##############################################################################
 
 OBJS= \
+src/bias_t_menu.o \
 src/MacOS.o \
 src/about_menu.o \
 src/actions.o \
@@ -1267,3 +1270,4 @@ src/vfo.o: src/receiver.h src/mode.h
 src/vox.o: src/transmitter.h
 src/waterfall.o: src/receiver.h
 src/MacTTS.o: src/message.h
+src/bias_t_menu.o: src/soapy_protocol.h
