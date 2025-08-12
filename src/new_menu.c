@@ -49,7 +49,7 @@
 #include "new_menu.h"
 #include "new_protocol.h"
 #include "noise_menu.h"
-#include "oc_menu.h"
+#include "bias_t_menu.h"
 #include "old_protocol.h"
 #include "pa_menu.h"
 #include "ps_menu.h"
@@ -216,9 +216,9 @@ static gboolean cw_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) 
   return TRUE;
 }
 
-static gboolean oc_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) {
+static gboolean bias_t_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) {
   cleanup();
-  oc_menu(top_window);
+  bias_t_menu(top_window);
   return TRUE;
 }
 
@@ -656,7 +656,7 @@ void new_menu() {
     col++;
     //
     // Fifth column: Menus for RX and TX
-    //               DSP, Equaliser, Meter, Ant, OC
+    //               DSP, Equaliser, Meter, Ant, Bias T
     //
     GtkWidget *dsp_b = gtk_button_new_with_label("DSP");
     g_signal_connect (dsp_b, "button-press-event", G_CALLBACK(dsp_cb), NULL);
@@ -671,12 +671,11 @@ void new_menu() {
     gtk_grid_attach(GTK_GRID(grid), ant_b, col, row, 1, 1);
     row++;
 
-    if (protocol == ORIGINAL_PROTOCOL || protocol == NEW_PROTOCOL) {
-      GtkWidget *oc_b = gtk_button_new_with_label("OC");
-      g_signal_connect (oc_b, "button-press-event", G_CALLBACK(oc_cb), NULL);
-      gtk_grid_attach(GTK_GRID(grid), oc_b, col, row, 1, 1);
-      row++;
-    }
+    GtkWidget *bias_t_b = gtk_button_new_with_label("Bias T");
+    g_signal_connect (bias_t_b, "button-press-event", G_CALLBACK(bias_t_cb), NULL);
+    gtk_grid_attach(GTK_GRID(grid), bias_t_b, col, row, 1, 1);
+    row++;
+    
 
     if (row > maxrow) { maxrow = row; }
 

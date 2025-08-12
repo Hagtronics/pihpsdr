@@ -549,6 +549,10 @@ void soapy_protocol_init(gboolean hf) {
     g_idle_add(fatal_error, "FATAL: Soapy Make Device Failed");
   }
 
+  // TODO
+  //SoapySDRDevice_writeSetting(soapy_device, "biasT_ctrl", "false");
+  //SoapySDRDevice_writeSetting(soapy_device, "biasT_ctrl", "true");
+
   SoapySDRKwargs_clear(&args);
 
   if (can_transmit) {
@@ -1086,3 +1090,20 @@ void soapy_protocol_set_automatic_gain(int id, gboolean mode) {
     t_print("%s: SoapySDRDevice_getGainMode failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
   }
 }
+
+void soapy_protocol_set_bias_t(RECEIVER *rx, gboolean mode) {
+  ASSERT_SERVER();
+  int rc;
+
+  if (mode) {
+	  rc = SoapySDRDevice_writeSetting(soapy_device, "biasT_ctrl", "true");
+  }
+  else {
+	  rc = SoapySDRDevice_writeSetting(soapy_device, "biasT_ctrl", "false");
+  }
+
+  if (rc != 0) {
+    t_print("%s: SoapySDRDevice_set_bias_t failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
+  }
+}
+
