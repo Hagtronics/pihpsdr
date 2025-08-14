@@ -1755,12 +1755,6 @@ void radio_start_radio() {
     //
     for (int id = 0; id < RECEIVERS; id++) {
       RECEIVER *rx = receiver[id];
-
-      
-      // TODO - Force Low IF Mode for testing.
-      soapy_protocol_set_lif(id, (gboolean)TRUE);
-
-      
       soapy_protocol_set_automatic_gain(id, adc[id].agc);
       soapy_protocol_set_rx_antenna(id, adc[id].antenna);
       soapy_protocol_set_rx_frequency(id);
