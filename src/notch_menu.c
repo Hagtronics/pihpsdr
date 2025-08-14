@@ -42,7 +42,7 @@ static gboolean close_cb () {
 
 static void notch_cb(GtkComboBox *widget, gpointer data) {
   notch_state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-  soapy_protocol_set_notch(active_receiver, notch_state);
+  soapy_protocol_set_rf_notch(active_receiver, notch_state);
 }
 
 
