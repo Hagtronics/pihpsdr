@@ -50,6 +50,7 @@
 #include "new_protocol.h"
 #include "noise_menu.h"
 #include "bias_t_menu.h"
+#include "notch_menu.h"
 #include "old_protocol.h"
 #include "pa_menu.h"
 #include "ps_menu.h"
@@ -219,6 +220,12 @@ static gboolean cw_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) 
 static gboolean bias_t_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) {
   cleanup();
   bias_t_menu(top_window);
+  return TRUE;
+}
+
+static gboolean notch_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) {
+  cleanup();
+  notch_menu(top_window);
   return TRUE;
 }
 
@@ -674,6 +681,11 @@ void new_menu() {
     GtkWidget *bias_t_b = gtk_button_new_with_label("Bias T");
     g_signal_connect (bias_t_b, "button-press-event", G_CALLBACK(bias_t_cb), NULL);
     gtk_grid_attach(GTK_GRID(grid), bias_t_b, col, row, 1, 1);
+    row++;
+
+    GtkWidget *notch_b = gtk_button_new_with_label("Bias T");
+    g_signal_connect (notch_b, "button-press-event", G_CALLBACK(notch_cb), NULL);
+    gtk_grid_attach(GTK_GRID(grid), notch_b, col, row, 1, 1);
     row++;
     
 
