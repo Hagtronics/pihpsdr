@@ -683,7 +683,7 @@ void new_menu() {
     gtk_grid_attach(GTK_GRID(grid), bias_t_b, col, row, 1, 1);
     row++;
 
-    GtkWidget *notch_b = gtk_button_new_with_label("MW/FM Notch");
+    GtkWidget *notch_b = gtk_button_new_with_label("RF Notch");
     g_signal_connect (notch_b, "button-press-event", G_CALLBACK(notch_cb), NULL);
     gtk_grid_attach(GTK_GRID(grid), notch_b, col, row, 1, 1);
     row++;
