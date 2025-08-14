@@ -46,7 +46,7 @@ static void notch_cb(GtkComboBox *widget, gpointer data) {
 }
 
 
-void notch_t_menu(GtkWidget *parent) {
+void notch_menu(GtkWidget *parent) {
   dialog = gtk_dialog_new();
   gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(parent));
   char title[64];
