@@ -1123,19 +1123,5 @@ void soapy_protocol_set_rf_notch(RECEIVER *rx, gboolean mode) {
   }
 }
 
-void soapy_protocol_set_lif(RECEIVER *rx, gboolean mode) {
-  ASSERT_SERVER();
-  int rc;
 
-  if (mode) {
-	  rc = SoapySDRDevice_writeSetting(soapy_device, "if_mode", "450kHz");
-  }
-  else {
-	  rc = SoapySDRDevice_writeSetting(soapy_device, "if_mode", "Zero-IF");
-  }
-
-  if (rc != 0) {
-    t_print("%s: SoapySDRDevice_set_lif failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
-  }
-}
 
