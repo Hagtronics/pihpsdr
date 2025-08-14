@@ -51,7 +51,7 @@ void notch_menu(GtkWidget *parent) {
   gtk_window_set_transient_for(GTK_WINDOW(dialog), GTK_WINDOW(parent));
   char title[64];
 
-  snprintf(title, sizeof(title), "piHPSDR - Notch");
+  snprintf(title, sizeof(title), "piHPSDR - MW/FM Notch");
   GtkWidget *headerbar = gtk_header_bar_new();
   gtk_window_set_titlebar(GTK_WINDOW(dialog), headerbar);
   gtk_header_bar_set_show_close_button(GTK_HEADER_BAR(headerbar), TRUE);
