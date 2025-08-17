@@ -55,4 +55,5 @@ double soapy_protocol_get_tx_gain_element(char *name);
 void soapy_protocol_iq_samples(float isample, float qsample);
 void soapy_protocol_set_bias_t(RECEIVER *rx, gboolean mode);
 void soapy_protocol_set_rf_notch(RECEIVER *rx, gboolean mode);
+void soapy_protocol_set_iq_corr(RECEIVER *rx, gboolean mode)
 

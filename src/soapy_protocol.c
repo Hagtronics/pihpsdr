@@ -1123,5 +1123,19 @@ void soapy_protocol_set_rf_notch(RECEIVER *rx, gboolean mode) {
   }
 }
 
+void soapy_protocol_set_iq_corr(RECEIVER *rx, gboolean mode) {
+  ASSERT_SERVER();
+  int rc;
 
+  if (mode) {
+	  rc = SoapySDRDevice_writeSetting(soapy_device, "iqcorr_ctrl", "true");
+  }
+  else {
+	  rc = SoapySDRDevice_writeSetting(soapy_device, "iqcorr_ctrl", "false");
+  }
+
+  if (rc != 0) {
+    t_print("%s: SoapySDRDevice_set_iq_corr failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
+  }
+}
 

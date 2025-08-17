@@ -50,6 +50,7 @@
 #include "new_protocol.h"
 #include "noise_menu.h"
 #include "bias_t_menu.h"
+#include "iq_corr_menu.h"
 #include "notch_menu.h"
 #include "old_protocol.h"
 #include "pa_menu.h"
@@ -226,6 +227,12 @@ static gboolean bias_t_cb (GtkWidget *widget, GdkEventButton *event, gpointer da
 static gboolean notch_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) {
   cleanup();
   notch_menu(top_window);
+  return TRUE;
+}
+
+static gboolean iq_corr_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) {
+  cleanup();
+  iq_corr_menu(top_window);
   return TRUE;
 }
 
@@ -687,7 +694,12 @@ void new_menu() {
     g_signal_connect (notch_b, "button-press-event", G_CALLBACK(notch_cb), NULL);
     gtk_grid_attach(GTK_GRID(grid), notch_b, col, row, 1, 1);
     row++;
-    
+
+    GtkWidget *iq_corr_b = gtk_button_new_with_label("IQ Corr");
+    g_signal_connect (iq_corr_b, "button-press-event", G_CALLBACK(iq_corr_b), NULL);
+    gtk_grid_attach(GTK_GRID(grid), iq_corr_b, col, row, 1, 1);
+    row++;
+
 
     if (row > maxrow) { maxrow = row; }
 
