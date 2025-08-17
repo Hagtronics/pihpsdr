@@ -696,7 +696,7 @@ void new_menu() {
     row++;
 
     GtkWidget *iq_corr_b = gtk_button_new_with_label("IQ Corr");
-    g_signal_connect (iq_corr_b, "button-press-event", G_CALLBACK(iq_corr_b), NULL);
+    g_signal_connect (iq_corr_b, "button-press-event", G_CALLBACK(iq_corr_cb), NULL);
     gtk_grid_attach(GTK_GRID(grid), iq_corr_b, col, row, 1, 1);
     row++;
 
