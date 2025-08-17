@@ -443,6 +443,7 @@ PROGRAM=pihpsdr
 ##############################################################################
 
 SOURCES= \
+src/iq_corr_menu.c \
 src/bias_t_menu.c \
 src/notch_menu.c \
 src/MacOS.c \
@@ -534,6 +535,7 @@ src/zoompan.c
 ##############################################################################
 
 HEADERS= \
+src/iq_corr_menu.h \
 src/bias_t_menu.h \
 src/notch_menu.h \
 src/MacOS.h \
@@ -632,6 +634,7 @@ src/zoompan.h
 OBJS= \
 src/bias_t_menu.o \
 src/notch_menu.o \
+src/iq_corr_menu.o \
 src/MacOS.o \
 src/about_menu.o \
 src/actions.o \
@@ -787,7 +790,7 @@ clean:
 
 src/hpsdrsim.o:     src/hpsdrsim.c  src/hpsdrsim.h
 	$(CC) -c $(CFLAGS) -o src/hpsdrsim.o src/hpsdrsim.c
-	
+
 src/newhpsdrsim.o:	src/newhpsdrsim.c src/hpsdrsim.h
 	$(CC) -c $(CFLAGS) -o src/newhpsdrsim.o src/newhpsdrsim.c
 
@@ -1278,3 +1281,4 @@ src/waterfall.o: src/receiver.h
 src/MacTTS.o: src/message.h
 src/bias_t_menu.o: src/soapy_protocol.h
 src/notch_menu.o: src/soapy_protocol.h
+src/iq_corr_menu.o: src/soapy_protocol.h
