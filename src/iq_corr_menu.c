@@ -73,10 +73,11 @@ void iq_corr_menu(GtkWidget *parent) {
   gtk_widget_set_name(iq_corr_b, "boldlabel");
   gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (iq_corr_b), iq_corr_state);
   gtk_grid_attach(GTK_GRID(grid), iq_corr_b, 0, row, 1, 1);
-  g_signal_connectiq_corr_b, "toggled", G_CALLBACK(iq_corr_cb), NULL);
+  g_signal_connect(iq_corr_b, "toggled", G_CALLBACK(iq_corr_cb), NULL);
 
   gtk_container_add(GTK_CONTAINER(content), grid);
   sub_menu = dialog;
   gtk_widget_show_all(dialog);
 
 }
+
