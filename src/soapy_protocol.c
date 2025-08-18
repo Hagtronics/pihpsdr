@@ -551,7 +551,7 @@ void soapy_protocol_init(gboolean hf) {
 
   // TODO
   //SoapySDRDevice_writeSetting(soapy_device, "biasT_ctrl", "false");
-  soapy_protocol_set_automatic_gain(soapy_device, 'true');
+  //soapy_protocol_set_automatic_gain(soapy_device, 'true');
   SoapySDRDevice_writeSetting(soapy_device, "agc_setpoint", "-30");
 
 
