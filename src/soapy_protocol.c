@@ -549,10 +549,9 @@ void soapy_protocol_init(gboolean hf) {
     g_idle_add(fatal_error, "FATAL: Soapy Make Device Failed");
   }
 
-  // TODO
+  // Soapy force things to happen for testing
   //SoapySDRDevice_writeSetting(soapy_device, "biasT_ctrl", "false");
-  //soapy_protocol_set_automatic_gain(soapy_device, 'true');
-  SoapySDRDevice_writeSetting(soapy_device, "agc_setpoint", "-30");
+  //SoapySDRDevice_writeSetting(soapy_device, "agc_setpoint", "-30");
 
 
   SoapySDRKwargs_clear(&args);
