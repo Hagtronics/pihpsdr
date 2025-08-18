@@ -160,10 +160,9 @@ void show_popup_slider(enum ACTION action, int rx, double min, double max, doubl
   static double scale_max;
   static double scale_wid;
 
-  // I want transparent sliders dag gam it!
-  //if (suppress_popup_sliders) {
-  //  return;
-  //}
+  if (suppress_popup_sliders) {
+    return;
+  }
 
   //
   // a) if there is still a pop-up slider on the screen for a different action, destroy it
