@@ -1023,7 +1023,7 @@ void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
   ASSERT_SERVER();
   int rc;
   t_print("%s: id=%d %s=%f\n", __FUNCTION__, id, name, gain);
-  rc = SoapySDRDevice_setbbbbbbbbbbbElement(soapy_device, SOAPY_SDR_RX, id, name, gain);
+  rc = SoapySDRDevice_setGainElement(soapy_device, SOAPY_SDR_RX, id, name, gain);
 
   if (rc != 0) {
     t_print("%s: SoapySDRDevice_setGainElement %s failed: %s\n", __FUNCTION__, name, SoapySDR_errToStr(rc));
