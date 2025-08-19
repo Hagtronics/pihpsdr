@@ -1088,7 +1088,7 @@ void soapy_protocol_set_automatic_gain(int id, gboolean mode) {
   rc = SoapySDRDevice_setGainMode(soapy_device, SOAPY_SDR_RX, id, mode);
 
   if (rc != 0) {
-    t_print("%s: SoapySDRDevice_getGainMode failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
+    t_print("%s: SoapySDRDevice_setGainMode failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
   }
 }
 
