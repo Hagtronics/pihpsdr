@@ -105,10 +105,22 @@ static void afgain_value_changed_cb(GtkWidget *widget, gpointer data) {
   radio_set_af_gain(active_receiver->id, value);
 }
 
+
+
+
+/* Was...
 static void rf_gain_value_changed_cb(GtkWidget *widget, gpointer data) {
   double value = gtk_range_get_value(GTK_RANGE(rf_gain_scale));
   radio_set_rf_gain(active_receiver->id, value);
 }
+*/
+
+// Is,
+static void rf_gain_value_changed_cb(GtkWidget *widget, gpointer data) {
+  double value = gtk_range_get_value(GTK_RANGE(rf_gain_scale));
+  radio_set_rf_gain(active_receiver->id, value);
+}
+
 
 static void micgain_value_changed_cb(GtkWidget *widget, gpointer data) {
   double value = gtk_range_get_value(GTK_RANGE(widget));
@@ -186,11 +198,11 @@ void show_popup_slider(enum ACTION action, int rx, double min, double max, doubl
     scale_max = max;
     scale_wid = max - min;
     scale_dialog = gtk_dialog_new_with_buttons(title, GTK_WINDOW(top_window), GTK_DIALOG_DESTROY_WITH_PARENT, NULL, NULL);
-    
-    // Dialog Contents are now 50% Opaque 
+
+    // Dialog Contents are now 50% Opaque
     // TODO - Wire up to selector in screen menu (Someday).
     gtk_window_set_opacity(GTK_WINDOW(scale_dialog), 0.5);
-    
+
 
     GtkWidget *content = gtk_dialog_get_content_area(GTK_DIALOG(scale_dialog));
     popup_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, min, max, delta);
@@ -345,6 +357,10 @@ void sliders_attenuation(int id) {
   }
 }
 
+
+
+
+/* Was...
 void sliders_agc_gain(int id) {
   if (id > receivers) { return; }
   //
@@ -360,6 +376,28 @@ void sliders_agc_gain(int id) {
     show_popup_slider(AGC_GAIN, id, -20.0, 120.0, 1.0, receiver[id]->agc_gain, title);
   }
 }
+*/
+
+// Really IF Gain - this has been taken over to avoid adding a new 'action'
+void sliders_agc_gain(int id) {
+  if (id > receivers) { return; }
+  //
+  // This ONLY moves the slider
+  //
+  if (display_sliders && active_receiver->id == id && agc_scale != NULL) {
+    if (agc_signal_id) { g_signal_handler_block(G_OBJECT(agc_scale), agc_signal_id); }
+    gtk_range_set_value (GTK_RANGE(agc_scale), gRdb);
+    if (agc_signal_id) { g_signal_handler_unblock(G_OBJECT(agc_scale), agc_signal_id); }
+  } else {
+    char title[64];
+    snprintf(title, sizeof(title), "IF Gain RX");
+    show_popup_slider(AGC_GAIN, id, 20, 59, 1, gRdb, title);
+  }
+}
+
+
+
+
 
 void sliders_af_gain(int id) {
   if (id > receivers) { return; }
@@ -378,6 +416,11 @@ void sliders_af_gain(int id) {
   }
 }
 
+
+
+
+
+/* Was...
 void sliders_rf_gain(int id, int rxadc) {
   if (id > receivers) { return; }
   if (rf_gain_scale == NULL) { return; }
@@ -394,6 +437,30 @@ void sliders_rf_gain(int id, int rxadc) {
     show_popup_slider(RF_GAIN, rxadc, adc[rxadc].min_gain, adc[rxadc].max_gain, 1.0, adc[rxadc].gain, title);
   }
 }
+*/
+
+// Is for RSP1B
+void sliders_rf_gain(int id, int rxadc) {
+  if (id > receivers) { return; }
+  if (rf_gain_scale == NULL) { return; }
+  //
+  // This ONLY moves the slider
+  //
+  if (display_sliders && active_receiver->id == id) {
+    if (rf_signal_id) { g_signal_handler_block(G_OBJECT(rf_gain_scale), rf_signal_id); }
+    gtk_range_set_value (GTK_RANGE(rf_gain_scale), LNAstate);
+    if (rf_signal_id) { g_signal_handler_unblock(G_OBJECT(rf_gain_scale), rf_signal_id); }
+  } else {
+    char title[64];
+    snprintf(title, sizeof(title), "LNA State");
+    show_popup_slider(RF_GAIN, rxadc, 0, 9, 1.0, LNAstate, title);
+  }
+}
+
+
+
+
+
 
 void sliders_filter_width(int id, int width) {
   if (id > receivers) { return; }

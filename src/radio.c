@@ -90,6 +90,7 @@
 #define min(x,y) (x<y?x:y)
 #define max(x,y) (x<y?y:x)
 
+
 int MENU_HEIGHT = 30;             // always set to VFO_HEIGHT/2
 int MENU_WIDTH = 65;              // nowhere changed
 int VFO_HEIGHT = 60;              // taken from the current VFO bar layout
@@ -2618,6 +2619,11 @@ void radio_calc_drive_level() {
   schedule_high_priority();
 }
 
+
+
+
+
+/* Was ...
 void radio_set_rf_gain(int id, double value) {
   if (id >= receivers) { return; }
   if (!have_rx_gain) { return; }
@@ -2647,6 +2653,46 @@ void radio_set_rf_gain(int id, double value) {
     band->gain = value;
   }
 }
+  */
+
+// Is,
+void radio_set_rf_gain(int id, double value) {
+  if (id >= receivers) { return; }
+  if (!have_rx_gain) { return; }
+
+  int rxadc = receiver[id]->adc;
+  LNAstate = value;
+  // adc[rxadc].attenuation = 0.0;
+
+  sliders_rf_gain(id, rxadc);
+
+  //if (radio_is_remote) {
+  //  send_rfgain(client_socket, id, adc[rxadc].gain);
+  //  return;
+  //}
+
+  if (protocol == SOAPYSDR_PROTOCOL) {
+#ifdef SOAPYSDR
+    // soapy_protocol_set_rx_gain(id);
+    soapy_protocol_set_rx_gain_element(int id, "RFGR", LNAstate);
+#endif
+  }
+
+  // Not gonna do this, don't care.... At least for now
+  //
+  // If this is RX1, store value "by the band"
+  //
+  //if (id == 0) {
+  //  BAND *band = band_get_band(vfo[id].band);
+  //  band->gain = value;
+  //}
+}
+
+
+
+
+
+
 
 void radio_set_squelch_enable(int id, int enable) {
   if (id >= receivers) { return; }
