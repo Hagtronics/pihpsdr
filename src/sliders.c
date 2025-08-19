@@ -164,9 +164,6 @@ void show_popup_slider(enum ACTION action, int rx, double min, double max, doubl
     return;
   }
 
-  // TEST!!!
-  scale_status = NO_ACTION;
-  
   //
   // a) if there is still a pop-up slider on the screen for a different action, destroy it
   //
