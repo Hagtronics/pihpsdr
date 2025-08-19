@@ -90,6 +90,8 @@
 #define min(x,y) (x<y?x:y)
 #define max(x,y) (x<y?y:x)
 
+extern uint16_t LNAstate;  // RF GAIN - 0 to 9, 0 being max gain
+extern uint16_t gRdb;      // IF GAIN - 20 to 59, 59 being max gain
 
 int MENU_HEIGHT = 30;             // always set to VFO_HEIGHT/2
 int MENU_WIDTH = 65;              // nowhere changed

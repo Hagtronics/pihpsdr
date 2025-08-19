@@ -47,6 +47,9 @@
 #endif
 #include "vfo.h"
 
+extern uint16_t LNAstate;  // RF GAIN - 0 to 9, 0 being max gain
+extern uint16_t gRdb;      // IF GAIN - 20 to 59, 59 being max gain
+
 static int width;
 static int height;
 
