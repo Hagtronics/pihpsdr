@@ -53,5 +53,5 @@ extern void sliders_diversity_phase(void);
 
 // Added for a hack 
 // Values to keep track of current gains
-extern uint16_t LNAstate = 4;  // RF GAIN - 0 to 9, 0 being max gain
-extern uint16_t gRdb = 45;     // IF GAIN - 20 to 59, 59 being max gain
+extern uint16_t LNAstate;  // RF GAIN - 0 to 9, 0 being max gain
+extern uint16_t gRdb;      // IF GAIN - 20 to 59, 59 being max gain

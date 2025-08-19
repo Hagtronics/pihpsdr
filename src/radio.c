@@ -1578,6 +1578,10 @@ void radio_start_radio() {
 
   adc[2].antenna = 0;  // PS RX feedback antenna
 
+  // init: My RF and IF Gain Initial Settings
+  LNAstate = 4;  
+  gRdb = 45;     
+
   //
   // Set device-specific defaults. All these may be changed
   // in the GUI and are then over-written from the props file
@@ -2674,7 +2678,7 @@ void radio_set_rf_gain(int id, double value) {
   if (protocol == SOAPYSDR_PROTOCOL) {
 #ifdef SOAPYSDR
     // soapy_protocol_set_rx_gain(id);
-    soapy_protocol_set_rx_gain_element(int id, "RFGR", LNAstate);
+    soapy_protocol_set_rx_gain_element(id, "RFGR", LNAstate);
 #endif
   }
 
