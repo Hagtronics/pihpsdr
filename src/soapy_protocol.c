@@ -986,6 +986,10 @@ void soapy_protocol_set_tx_antenna(int ant) {
   }
 }
 
+
+
+
+/* Was ....
 void soapy_protocol_set_rx_gain(int id) {
   ASSERT_SERVER();
   int rc;
@@ -995,6 +999,26 @@ void soapy_protocol_set_rx_gain(int id) {
     t_print("%s: SoapySDRDevice_setGain failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
   }
 }
+*/
+
+// Is, should work for any SDR Play
+void soapy_protocol_set_rx_gain(int id) {
+
+  // Do nothing
+  //ASSERT_SERVER();
+  //int rc;
+  //rc = SoapySDRDevice_setGain(soapy_device, SOAPY_SDR_RX, id, adc[id].gain);
+
+  //if (rc != 0) {
+  //  t_print("%s: SoapySDRDevice_setGain failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
+  //}
+}
+
+
+
+
+
+
 
 void soapy_protocol_rx_attenuate(int id) {
   //
@@ -1018,13 +1042,17 @@ void soapy_protocol_rx_unattenuate(int id) {
   soapy_protocol_set_rx_gain(id);
 }
 
+
+
+
+// Is with some additions to limit gain.....
 void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
   ASSERT_SERVER();
   int rc;
 
   // Limit values RSP1B Only
+  // TODO fix to real limits
   char* rfgr = "RFGR";
-  char* ifgr = "IFGR";
   if(strcmp(name, rfgr) == 0 )
   {
     if(gain > 9){
@@ -1035,6 +1063,7 @@ void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
     }
   }
 
+  char* ifgr = "IFGR";
   if(strcmp(name, ifgr) == 0 )
   {
     if(gain > 59.0){
@@ -1044,6 +1073,7 @@ void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
       gain = 20.0;
     }
   }
+
 
   t_print("%s: id=%d %s=%f\n", __FUNCTION__, id, name, gain);
   rc = SoapySDRDevice_setGainElement(soapy_device, SOAPY_SDR_RX, id, name, gain);
@@ -1056,6 +1086,7 @@ void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
   // The overall gain has now changed. So we need to query it and set the gain
   //
   adc[id].gain = SoapySDRDevice_getGain(soapy_device, SOAPY_SDR_RX, id);
+
 }
 
 void soapy_protocol_set_tx_gain(double gain) {

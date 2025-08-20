@@ -47,7 +47,6 @@
 #endif
 #include "vfo.h"
 
-extern uint16_t LNAstate;  // RF GAIN - 0 to 9, 0 being max gain
 extern uint16_t gRdb;      // IF GAIN - 20 to 59, 59 being max gain
 
 static int width;
@@ -451,12 +450,13 @@ void sliders_rf_gain(int id, int rxadc) {
   //
   if (display_sliders && active_receiver->id == id) {
     if (rf_signal_id) { g_signal_handler_block(G_OBJECT(rf_gain_scale), rf_signal_id); }
-    gtk_range_set_value (GTK_RANGE(rf_gain_scale), LNAstate);
+    gtk_range_set_value (GTK_RANGE(rf_gain_scale), adc[rxadc].gain);
     if (rf_signal_id) { g_signal_handler_unblock(G_OBJECT(rf_gain_scale), rf_signal_id); }
   } else {
     char title[64];
     snprintf(title, sizeof(title), "LNA State");
-    show_popup_slider(RF_GAIN, rxadc, 0, 9, 1.0, LNAstate, title);
+    // Hardcode LNAState for RSP1B
+    show_popup_slider(RF_GAIN, rxadc, 0, 9, 1.0, adc[rxadc].gain, title);
   }
 }
 

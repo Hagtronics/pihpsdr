@@ -349,6 +349,7 @@ extern void radio_remote_set_twotone(int state);
 extern int optimize_for_touchscreen;
 extern void my_combo_attach(GtkGrid *grid, GtkWidget *combo, int row, int col, int spanrow, int spancol);
 
+
 //
 // Macro to flag an unimplemented client/server feature,
 // or a client trying to do things only a server should do.

@@ -25,9 +25,10 @@
 typedef struct _adc {
   int antenna;
   int attenuation;
-  double gain;
+  double gain;      // This is RFGR or LNAState for SDRPlay
   double min_gain;
   double max_gain;
+  int    if_gain;   // This is IFGR for SDRPlay
   int    agc;
   int    dither;
   int    random;

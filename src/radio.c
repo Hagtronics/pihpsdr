@@ -90,7 +90,6 @@
 #define min(x,y) (x<y?x:y)
 #define max(x,y) (x<y?y:x)
 
-uint16_t LNAstate;  // RF GAIN - 0 to 9, 0 being max gain
 uint16_t gRdb;      // IF GAIN - 20 to 59, 59 being max gain
 
 int MENU_HEIGHT = 30;             // always set to VFO_HEIGHT/2
@@ -1580,8 +1579,7 @@ void radio_start_radio() {
 
   adc[2].antenna = 0;  // PS RX feedback antenna
 
-  // init: My RF and IF Gain Initial Settings
-  LNAstate = 4;
+  // init: My IF Gain Initial Settings
   gRdb = 45;
 
   //
@@ -2666,11 +2664,11 @@ void radio_set_rf_gain(int id, double value) {
   if (id >= receivers) { return; }
   if (!have_rx_gain) { return; }
 
-  //int rxadc = receiver[id]->adc;
-  LNAstate = value;
-  // adc[rxadc].attenuation = 0.0;
+  int rxadc = receiver[id]->adc;
+  adc[rxadc].gain = value;
+  adc[rxadc].attenuation = 0.0;
 
-  sliders_rf_gain(id, LNAstate);
+  sliders_rf_gain(id, rxadc);
 
   //if (radio_is_remote) {
   //  send_rfgain(client_socket, id, adc[rxadc].gain);
@@ -2680,18 +2678,17 @@ void radio_set_rf_gain(int id, double value) {
   if (protocol == SOAPYSDR_PROTOCOL) {
 #ifdef SOAPYSDR
     // soapy_protocol_set_rx_gain(id);
-    soapy_protocol_set_rx_gain_element(id, "RFGR", LNAstate);
+    soapy_protocol_set_rx_gain_element(id, "RFGR", value);
 #endif
   }
 
-  // Not gonna do this, don't care.... At least for now
   //
   // If this is RX1, store value "by the band"
   //
-  //if (id == 0) {
-  //  BAND *band = band_get_band(vfo[id].band);
-  //  band->gain = value;
-  //}
+  if (id == 0) {
+    BAND *band = band_get_band(vfo[id].band);
+    band->gain = value;
+  }
 }
 
 
