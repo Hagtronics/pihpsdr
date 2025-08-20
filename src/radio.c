@@ -1559,7 +1559,7 @@ void radio_start_radio() {
   //discovered[devices].soapy.rx[id].gain_elem_min[i]
   t_print("%s: DEBUG: Gain range for element %d: Min = %d   Max = %d\n", __FUNCTION__, s_i, discovered[s_devices].soapy.rx[s_id].gain_elem_min[s_i], discovered[devices].soapy.rx[id].gain_elem_max[i] );
 
-  int s_i = 0;
+  s_i = 0;
   t_print("%s: DEBUG: Gain range for element %d: Min = %d   Max = %d\n", __FUNCTION__, s_i, discovered[s_devices].soapy.rx[s_id].gain_elem_min[s_i], discovered[devices].soapy.rx[id].gain_elem_max[i] );
 
 
