@@ -1021,6 +1021,30 @@ void soapy_protocol_rx_unattenuate(int id) {
 void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
   ASSERT_SERVER();
   int rc;
+
+  // Limit values RSP1B Only
+  char* rfgr = "RFGR";
+  char* ifgr = "IFGR";
+  if(strcmp(name, rfgr) == 0 )
+  {
+    if(gain > 9){
+      gain = 9;
+    }
+    if(gain < 0){
+      gain = 0;
+    }
+  }
+
+  if(strcmp(name, ifgr) == 0 )
+  {
+    if(gain > 59.0){
+      gain = 59.0;
+    }
+    if(gain < 20.0){
+      gain = 20.0;
+    }
+  }
+
   t_print("%s: id=%d %s=%f\n", __FUNCTION__, id, name, gain);
   rc = SoapySDRDevice_setGainElement(soapy_device, SOAPY_SDR_RX, id, name, gain);
 

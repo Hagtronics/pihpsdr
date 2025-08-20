@@ -1581,8 +1581,8 @@ void radio_start_radio() {
   adc[2].antenna = 0;  // PS RX feedback antenna
 
   // init: My RF and IF Gain Initial Settings
-  LNAstate = 4;  
-  gRdb = 45;     
+  LNAstate = 4;
+  gRdb = 45;
 
   //
   // Set device-specific defaults. All these may be changed
@@ -2666,11 +2666,11 @@ void radio_set_rf_gain(int id, double value) {
   if (id >= receivers) { return; }
   if (!have_rx_gain) { return; }
 
-  int rxadc = receiver[id]->adc;
+  //int rxadc = receiver[id]->adc;
   LNAstate = value;
   // adc[rxadc].attenuation = 0.0;
 
-  sliders_rf_gain(id, rxadc);
+  sliders_rf_gain(id, LNAstate);
 
   //if (radio_is_remote) {
   //  send_rfgain(client_socket, id, adc[rxadc].gain);
