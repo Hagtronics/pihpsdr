@@ -1617,6 +1617,17 @@ void radio_start_radio() {
     adc[1].gain = rx_gain_calibration;
     soapy_radio_sample_rate = radio->soapy.sample_rate;
     filter_board = NO_FILTER_BOARD;
+
+
+
+
+    // DEBUG
+    t_print("DEBUG %s: Gain Mix - Can I get it? min_gain = %d\n", __FUNCTION__, adc[0].min_gain);
+    t_print("DEBUG %s: IF Gain Min - Can I get it? min_gain = %d\n", __FUNCTION__, adc[0].min_if_gain);
+
+
+
+
     break;
   default:
     filter_board = ALEX;
@@ -1844,16 +1855,6 @@ void radio_remote_change_receivers(int r) {
     receiver[1]->displaying = 1;
     break;
   }
-
-
-  // Force gains for RSP1B
-  adc[0].gain = 4;
-  adc[0].min_gain = 0;
-  adc[0].max_gain = 9;
-
-  adc[0].if_gain = 50;
-  adc[0].if_min_gain = 20;
-  adc[0].if_max_gain = 59;
 
   radio_reconfigure_screen();
   rx_set_active(receiver[0]);
