@@ -713,7 +713,12 @@ GtkWidget *sliders_init(int my_width, int my_height) {
   gtk_widget_set_halign(label, GTK_ALIGN_END);
   gtk_widget_show(label);
   gtk_grid_attach(GTK_GRID(sliders), label, t2pos, 0, twidth, 1);
-  agc_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, -20.0, 120.0, 1.0);
+
+
+  // Hardcode for RSP1B
+  agc_scale = gtk_scale_new_with_range(GTK_ORIENTATION_HORIZONTAL, 20, 59, 1.0);
+
+
   gtk_widget_set_size_request(agc_scale, 0, height / 2);
   gtk_widget_set_valign(agc_scale, GTK_ALIGN_CENTER);
   gtk_range_set_increments (GTK_RANGE(agc_scale), 1.0, 1.0);
