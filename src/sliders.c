@@ -47,8 +47,6 @@
 #endif
 #include "vfo.h"
 
-extern uint16_t gRdb;      // IF GAIN - 20 to 59, 59 being max gain
-
 static int width;
 static int height;
 
@@ -388,12 +386,13 @@ void sliders_agc_gain(int id) {
   //
   if (display_sliders && active_receiver->id == id && agc_scale != NULL) {
     if (agc_signal_id) { g_signal_handler_block(G_OBJECT(agc_scale), agc_signal_id); }
-    gtk_range_set_value (GTK_RANGE(agc_scale), gRdb);
+    gtk_range_set_value (GTK_RANGE(agc_scale), adc[0].if_gain);
     if (agc_signal_id) { g_signal_handler_unblock(G_OBJECT(agc_scale), agc_signal_id); }
   } else {
     char title[64];
     snprintf(title, sizeof(title), "IF Gain RX");
-    show_popup_slider(AGC_GAIN, id, 20, 59, 1, gRdb, title);
+    // show_popup_slider(AGC_GAIN, id, 20, 59, 1, gRdb, title);
+    show_popup_slider(AGC_GAIN, id, adc[0].if_min_gain, adc[0].if_max_gain, 1.0, adc[0].if_gain, title);
   }
 }
 

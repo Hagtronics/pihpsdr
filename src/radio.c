@@ -90,8 +90,6 @@
 #define min(x,y) (x<y?x:y)
 #define max(x,y) (x<y?y:x)
 
-uint16_t gRdb;      // IF GAIN - 20 to 59, 59 being max gain
-
 int MENU_HEIGHT = 30;             // always set to VFO_HEIGHT/2
 int MENU_WIDTH = 65;              // nowhere changed
 int VFO_HEIGHT = 60;              // taken from the current VFO bar layout
@@ -1549,25 +1547,6 @@ void radio_start_radio() {
     break;
   }
 
-
-
-
-  // DEBUG HACK Can I get gains here?
-  int s_devices = 0;
-  int s_id = 0;
-  int s_i = 0;
-  //discovered[devices].soapy.rx[id].gain_elem_min[i]
-  t_print("%s: DEBUG: Gain range for element %d: Min = %d   Max = %d\n", __FUNCTION__, s_i, discovered[s_devices].soapy.rx[s_id].gain_elem_min[s_i], discovered[s_devices].soapy.rx[s_id].gain_elem_max[s_i] );
-
-  s_i = 1;
-  t_print("%s: DEBUG: Gain range for element %d: Min = %d   Max = %d\n", __FUNCTION__, s_i, discovered[s_devices].soapy.rx[s_id].gain_elem_min[s_i], discovered[s_devices].soapy.rx[s_id].gain_elem_max[s_i] );
-
-
-
-
-
-
-
   adc[0].antenna = 0;
   adc[0].attenuation = 0;
   adc[0].gain = 0;
@@ -1598,8 +1577,6 @@ void radio_start_radio() {
 
   adc[2].antenna = 0;  // PS RX feedback antenna
 
-  // init: My IF Gain Initial Settings
-  gRdb = 45;
 
   //
   // Set device-specific defaults. All these may be changed
@@ -1867,6 +1844,16 @@ void radio_remote_change_receivers(int r) {
     receiver[1]->displaying = 1;
     break;
   }
+
+
+  // Force gains for RSP1B
+  adc[0].gain = 4;
+  adc[0].min_gain = 0;
+  adc[0].max_gain = 9;
+
+  adc[0].if_gain = 50;
+  adc[0].if_min_gain = 20;
+  adc[0].if_max_gain = 59;
 
   radio_reconfigure_screen();
   rx_set_active(receiver[0]);

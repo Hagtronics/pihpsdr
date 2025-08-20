@@ -50,7 +50,3 @@ extern void sliders_linein_gain(void);
 extern void sliders_drive(void);
 extern void sliders_diversity_gain(void);
 extern void sliders_diversity_phase(void);
-
-// Added for a hack
-// Value to keep track of current gains
-extern uint16_t gRdb;      // IF GAIN - 20 to 59, 59 being max gain
