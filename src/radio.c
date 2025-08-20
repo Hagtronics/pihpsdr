@@ -1549,6 +1549,25 @@ void radio_start_radio() {
     break;
   }
 
+
+
+
+  // DEBUG HACK Can I get gains here?
+  int s_devices = 0;
+  int s_id = 0;
+  int s_i = 0;
+  //discovered[devices].soapy.rx[id].gain_elem_min[i]
+  t_print("%s: DEBUG: Gain range for element %d: Min = %d   Max = %d\n", __FUNCTION__, s_i, discovered[s_devices].soapy.rx[s_id].gain_elem_min[s_i], discovered[devices].soapy.rx[id].gain_elem_max[i] );
+
+  int s_i = 0;
+  t_print("%s: DEBUG: Gain range for element %d: Min = %d   Max = %d\n", __FUNCTION__, s_i, discovered[s_devices].soapy.rx[s_id].gain_elem_min[s_i], discovered[devices].soapy.rx[id].gain_elem_max[i] );
+
+
+
+
+
+
+
   adc[0].antenna = 0;
   adc[0].attenuation = 0;
   adc[0].gain = 0;

@@ -455,8 +455,7 @@ void sliders_rf_gain(int id, int rxadc) {
   } else {
     char title[64];
     snprintf(title, sizeof(title), "LNA State");
-    // Hardcode LNAState for RSP1B
-    show_popup_slider(RF_GAIN, rxadc, 0, 9, 1.0, adc[rxadc].gain, title);
+    show_popup_slider(RF_GAIN, rxadc, adc[rxadc].min_gain, adc[rxadc].max_gain, 1.0, adc[rxadc].gain, title);
   }
 }
 

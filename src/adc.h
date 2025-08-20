@@ -25,12 +25,12 @@
 typedef struct _adc {
   int antenna;
   int attenuation;
-  double gain;          // This is RFGR or LNAState for SDRPlay
+  double gain;          // This is RFGR or LNAState for SDRPlay - SDR Play API uses these as Ints, so cast appropriately!
   double min_gain;      // For RFGR
   double max_gain;      // For RFGR
-  double if_gain;       // This is IFGR for SDRPlay
-  double min_if_gain;   // For IFGR
-  double max_if_gain;   // For IFGR
+  int if_gain;          // This is IFGR for SDRPlay
+  int min_if_gain;      // For IFGR
+  int max_if_gain;      // For IFGR
   int    agc;
   int    dither;
   int    random;
