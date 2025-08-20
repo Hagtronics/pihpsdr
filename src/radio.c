@@ -1846,10 +1846,13 @@ void radio_remote_change_receivers(int r) {
   }
 
   // HACK / Hardcode Gains for RSP1B here
+  adc[0].gain = 0;
   adc[0].min_gain = 0;
   adc[0].max_gain = 9;
+  adc[0].if_gain = 50;
   adc[0].if_min_gain = 20;
   adc[0].if_max_gain = 59;
+  t_print("DEBUG - Hardcoded Gains Here\n");
 
   radio_reconfigure_screen();
   rx_set_active(receiver[0]);
