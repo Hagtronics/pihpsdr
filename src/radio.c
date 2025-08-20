@@ -1617,25 +1617,6 @@ void radio_start_radio() {
     adc[1].gain = rx_gain_calibration;
     soapy_radio_sample_rate = radio->soapy.sample_rate;
     filter_board = NO_FILTER_BOARD;
-
-
-
-
-    // DEBUG
-    t_print("DEBUG %s: RF Gain - min_gain = %d\n", __FUNCTION__, radio->soapy.rx[0].gain_min);
-    t_print("DEBUG %s: RF Gain - max_gain = %d\n", __FUNCTION__, radio->soapy.rx[0].gain_max);
-
-    t_print("DEBUG %s: 0 element Gain - min_gain = %d\n", __FUNCTION__, radio->soapy.rx[0].gain_elem_min[0]);
-    t_print("DEBUG %s: 0 element Gain - max_gain = %d\n", __FUNCTION__, radio->soapy.rx[0].gain_elem_max[0]);
-
-    t_print("DEBUG %s: 1 element Gain - min_gain = %d\n", __FUNCTION__, radio->soapy.rx[0].gain_elem_min[1]);
-    t_print("DEBUG %s: 1 element Gain - max_gain = %d\n", __FUNCTION__, radio->soapy.rx[0].gain_elem_max[1]);
-
-    t_print("DEBUG %s: IF Gain Min - Can I get it? min_gain = %d\n", __FUNCTION__, adc[0].if_min_gain);
-
-
-
-
     break;
   default:
     filter_board = ALEX;
@@ -1863,6 +1844,12 @@ void radio_remote_change_receivers(int r) {
     receiver[1]->displaying = 1;
     break;
   }
+
+  // HACK / Hardcode Gains for RSP1B here
+  adc[0].min_gain = 0;
+  adc[0].max_gain = 9;
+  adc[0].if_min_gain = 20;
+  adc[0].if_max_gain = 59;
 
   radio_reconfigure_screen();
   rx_set_active(receiver[0]);
