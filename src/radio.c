@@ -1622,8 +1622,8 @@ void radio_start_radio() {
 
 
     // DEBUG
-    t_print("DEBUG %s: Gain Mix - Can I get it? min_gain = %d\n", __FUNCTION__, adc[0].min_gain);
-    t_print("DEBUG %s: IF Gain Min - Can I get it? min_gain = %d\n", __FUNCTION__, adc[0].min_if_gain);
+    t_print("DEBUG %s: RF Gain Mix - Can I get it? min_gain = %d\n", __FUNCTION__, adc[0].min_gain);
+    t_print("DEBUG %s: IF Gain Min - Can I get it? min_gain = %d\n", __FUNCTION__, adc[0].if_min_gain);
 
 
 

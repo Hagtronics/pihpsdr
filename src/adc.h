@@ -29,8 +29,8 @@ typedef struct _adc {
   double min_gain;      // For RFGR
   double max_gain;      // For RFGR
   int if_gain;          // This is IFGR for SDRPlay
-  int min_if_gain;      // For IFGR
-  int max_if_gain;      // For IFGR
+  int if_min_gain;      // For IFGR
+  int if_max_gain;      // For IFGR
   int    agc;
   int    dither;
   int    random;
