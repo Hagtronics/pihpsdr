@@ -331,11 +331,10 @@ extern void   radio_start_auto_tune(void);
 extern void   radio_set_anan10E(int new);
 extern void   radio_set_squelch_enable(int id, int enable);
 extern void   radio_set_squelch(int id, double value);
-extern void   radio_set_agc_gain(int id, double value);
+extern void   radio_set_agc_gain(int id, double value);  // Really IF Gain
 extern void   radio_set_af_gain(int id, double value);
 extern void   radio_set_rf_gain(int id, double value);
 
-extern void   radio_set_if_gain(int id, double value);
 
 
 extern void   radio_set_mic_gain(double value);
