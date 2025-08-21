@@ -334,6 +334,10 @@ extern void   radio_set_squelch(int id, double value);
 extern void   radio_set_agc_gain(int id, double value);
 extern void   radio_set_af_gain(int id, double value);
 extern void   radio_set_rf_gain(int id, double value);
+
+extern void   radio_set_if_gain(int id, double value);
+
+
 extern void   radio_set_mic_gain(double value);
 extern void   radio_set_linein_gain(double value);
 

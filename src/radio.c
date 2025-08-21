@@ -2699,6 +2699,39 @@ void radio_set_rf_gain(int id, double value) {
 }
 
 
+// New IF Gain Setting RSP1B
+void radio_set_if_gain(int id, double value) {
+  //if (id >= receivers) { return; }
+  //if (!have_rx_gain) { return; }
+
+  int rxadc = receiver[id]->adc;
+  adc[rxadc].ifgain = value;
+  //adc[rxadc].attenuation = 0.0;
+
+  sliders_agc_gain(id, rxadc);
+
+  //if (radio_is_remote) {
+  //  send_rfgain(client_socket, id, adc[rxadc].gain);
+  //  return;
+  //}
+
+  if (protocol == SOAPYSDR_PROTOCOL) {
+#ifdef SOAPYSDR
+    // soapy_protocol_set_rx_gain(id);
+    soapy_protocol_set_rx_gain_element(id, "IFGR", value);
+#endif
+  }
+
+  //
+  // If this is RX1, store value "by the band"
+  //
+  //if (id == 0) {
+  //  BAND *band = band_get_band(vfo[id].band);
+  //  band->gain = value;
+  //}
+}
+
+
 
 
 
