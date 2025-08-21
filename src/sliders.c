@@ -407,6 +407,7 @@ void sliders_agc_gain(int id) {
     if (agc_signal_id) { g_signal_handler_block(G_OBJECT(agc_scale), agc_signal_id); }
 
     gtk_range_set_value (GTK_RANGE(agc_scale), adc[0].if_gain);
+
     if (agc_signal_id) { g_signal_handler_unblock(G_OBJECT(agc_scale), agc_signal_id); }
 
   } else {
@@ -414,6 +415,7 @@ void sliders_agc_gain(int id) {
     snprintf(title, sizeof(title), "IF Gain RX");
     // show_popup_slider(AGC_GAIN, id, 20, 59, 1, gRdb, title);
     //show_popup_slider(AGC_GAIN, id, adc[0].if_min_gain, adc[0].if_max_gain, 1.0, adc[0].if_gain, title);
+    // Hardcode IF Gain for RSP1B and all SDRPlay devices
     show_popup_slider(AGC_GAIN, id, 20, 59, 1.0, adc[0].if_gain, title);
   }
 }
