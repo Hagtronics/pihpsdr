@@ -488,13 +488,13 @@ int process_action(void *data) {
     break;
 
   case AGC_GAIN_RX1:
-    value = KnobOrWheel(a, receiver[0]->agc_gain, -20.0, 120.0, 1.0);
+    value = KnobOrWheel(a, receiver[0]->agc_gain, 20.0, 59, 1.0);
     radio_set_agc_gain(0, value);
     break;
 
   case AGC_GAIN_RX2:
     if (receivers == 2) {
-      value = KnobOrWheel(a, receiver[1]->agc_gain, -20.0, 120.0, 1.0);
+      value = KnobOrWheel(a, receiver[1]->agc_gain, 20.0, 59, 1.0);
       radio_set_agc_gain(1, value);
     }
 
