@@ -2699,42 +2699,6 @@ void radio_set_rf_gain(int id, double value) {
 }
 
 
-// New IF Gain Setting RSP1B
-void radio_set_if_gain(int id, double value) {
-  //if (id >= receivers) { return; }
-  //if (!have_rx_gain) { return; }
-
-  int rxadc = receiver[id]->adc;
-  adc[rxadc].if_gain = value;
-  //adc[rxadc].attenuation = 0.0;
-
-  sliders_agc_gain(id);
-
-  //if (radio_is_remote) {
-  //  send_rfgain(client_socket, id, adc[rxadc].gain);
-  //  return;
-  //}
-
-  //if (protocol == SOAPYSDR_PROTOCOL) {
-//#ifdef SOAPYSDR
-    // soapy_protocol_set_rx_gain(id);
-  t_print("radio.c line 2721 - Set the IFGR\n");
-  soapy_protocol_set_rx_gain_element(id, "IFGR", value);
-//#endif
-  //}
-
-  //
-  // If this is RX1, store value "by the band"
-  //
-  //if (id == 0) {
-  //  BAND *band = band_get_band(vfo[id].band);
-  //  band->gain = value;
-  //}
-}
-
-
-
-
 
 
 
@@ -2791,14 +2755,62 @@ void radio_set_af_gain(int id, double value) {
   sliders_af_gain(id);
 }
 
+
+
+
+
+// Taken over for IFGR RSP1B
+
+/* Was ...
 void radio_set_agc_gain(int id, double value) {
   if (id >= receivers) { return; }
 
   receiver[id]->agc_gain = value;
-  rx_set_agc(receiver[id]);
+  //rx_set_agc(receiver[id]);
+
 
   sliders_agc_gain(id);
 }
+  */
+
+// is,
+void radio_set_agc_gain(int id, double value) {
+  if (id >= receivers) { return; }
+
+  int rxadc = receiver[id]->adc;
+  adc[rxadc].if_gain = value;
+  //adc[rxadc].attenuation = 0.0;
+
+  sliders_agc_gain(id, rxadc);
+
+  //if (radio_is_remote) {
+  //  send_rfgain(client_socket, id, adc[rxadc].gain);
+  //  return;
+  //}
+
+  //if (protocol == SOAPYSDR_PROTOCOL) {
+//#ifdef SOAPYSDR
+    // soapy_protocol_set_rx_gain(id);
+  t_print("radio.c line 2721 - Set the IFGR\n");
+  soapy_protocol_set_rx_gain_element(id, "IFGR", value);
+//#endif
+  //}
+
+  //
+  // If this is RX1, store value "by the band"
+  //
+  //if (id == 0) {
+  //  BAND *band = band_get_band(vfo[id].band);
+  //  band->gain = value;
+  //}
+}
+
+
+
+
+
+
+
 
 void radio_set_c25_att(int id, int val) {
   //

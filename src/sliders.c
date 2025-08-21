@@ -326,7 +326,7 @@ int sliders_active_receiver_changed(void *data) {
     int rxadc = active_receiver->adc;
     sliders_af_gain(id);
     sliders_rf_gain(id, rxadc);
-    sliders_agc_gain(id);
+    sliders_agc_gain(id, rxadc);
     sliders_squelch(id);
     sliders_c25_att(id);
     sliders_attenuation(id);
@@ -398,7 +398,7 @@ void sliders_agc_gain(int id) {
 */
 
 // Really IF Gain - this has been taken over to avoid adding a new 'action'
-void sliders_agc_gain(int id) {
+void sliders_agc_gain(int id, int rxadc) {
   if (id > receivers) { return; }
   //
   // This ONLY moves the slider
@@ -406,7 +406,7 @@ void sliders_agc_gain(int id) {
   if (display_sliders && active_receiver->id == id && agc_scale != NULL) {
     if (agc_signal_id) { g_signal_handler_block(G_OBJECT(agc_scale), agc_signal_id); }
 
-    gtk_range_set_value (GTK_RANGE(agc_scale), adc[0].if_gain);
+    gtk_range_set_value (GTK_RANGE(agc_scale), adc[rxadc].if_gain);
 
     if (agc_signal_id) { g_signal_handler_unblock(G_OBJECT(agc_scale), agc_signal_id); }
 
@@ -415,8 +415,11 @@ void sliders_agc_gain(int id) {
     snprintf(title, sizeof(title), "IF Gain RX");
     // show_popup_slider(AGC_GAIN, id, 20, 59, 1, gRdb, title);
     //show_popup_slider(AGC_GAIN, id, adc[0].if_min_gain, adc[0].if_max_gain, 1.0, adc[0].if_gain, title);
+
     // Hardcode IF Gain for RSP1B and all SDRPlay devices
-    show_popup_slider(AGC_GAIN, id, 20, 59, 1.0, adc[0].if_gain, title);
+    //show_popup_slider(AGC_GAIN, id, 20, 59, 1.0, adc[rxadc].if_gain, title);
+    //show_popup_slider(RF_GAIN, rxadc, adc[rxadc].min_gain, adc[rxadc].max_gain, 1.0, adc[rxadc].gain, title);
+    show_popup_slider(AGC_GAIN, rxadc, 20.0, 59.0, 1.0, adc[rxadc].if_gain, title);
   }
 }
 
@@ -467,8 +470,6 @@ void sliders_rf_gain(int id, int rxadc) {
   //
   // This ONLY moves the slider
   //
-
-  t_print("Hello from: sliders_rf_gain() - rxadc = %d\n", rxadc);
   if (display_sliders && active_receiver->id == id) {
     if (rf_signal_id) { g_signal_handler_block(G_OBJECT(rf_gain_scale), rf_signal_id); }
     gtk_range_set_value (GTK_RANGE(rf_gain_scale), adc[rxadc].gain);

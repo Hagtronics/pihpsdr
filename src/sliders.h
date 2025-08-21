@@ -39,7 +39,7 @@ extern void sliders_filter_low(int id, int value);
 extern void sliders_filter_high(int id, int value);
 extern void sliders_filter_width(int id, int value);
 extern void sliders_filter_shift(int id, int value);
-extern void sliders_agc_gain(int id);
+extern void sliders_agc_gain(int id, int rxadc);
 extern void sliders_af_gain(int id);
 extern void sliders_rf_gain(int id, int rxadc);
 extern void sliders_attenuation(int id);
