@@ -2718,7 +2718,7 @@ void radio_set_if_gain(int id, double value) {
   if (protocol == SOAPYSDR_PROTOCOL) {
 #ifdef SOAPYSDR
     // soapy_protocol_set_rx_gain(id);
-    t_print("Set the IFGR\n")
+    t_print("radio.c line 2721 - Set the IFGR\n");
     soapy_protocol_set_rx_gain_element(id, "IFGR", value);
 #endif
   }
