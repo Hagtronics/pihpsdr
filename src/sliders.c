@@ -111,9 +111,9 @@ static void agcgain_value_changed_cb(GtkWidget *widget, gpointer data) {
   // radio_set_agc_gain(active_receiver->id, value);   // Was
   // soapy_protocol_set_rx_gain_element(int id, char *name, double gain);  // Function Prototype
 
-  // TODO This is wrong call - look at RF Gain call for how it shoukd be! Line 139
+  // TODO This is wrong call - look at RF Gain call for how it should be! Line 139  !!! FIXED????
   // radio_set_rf_gain(active_receiver->id, value);
-  soapy_protocol_set_rx_gain_element(active_receiver->id, "IFGR", value);
+  radio_set_if_gain(active_receiver->id, value);
 }
 
 
