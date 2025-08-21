@@ -468,7 +468,7 @@ void sliders_rf_gain(int id, int rxadc) {
   // This ONLY moves the slider
   //
 
-  t_print("Hello from: sliders_rf_gain() - rxadc = %d\n", rxadc)
+  t_print("Hello from: sliders_rf_gain() - rxadc = %d\n", rxadc);
   if (display_sliders && active_receiver->id == id) {
     if (rf_signal_id) { g_signal_handler_block(G_OBJECT(rf_gain_scale), rf_signal_id); }
     gtk_range_set_value (GTK_RANGE(rf_gain_scale), adc[rxadc].gain);
