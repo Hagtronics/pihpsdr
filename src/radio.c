@@ -2721,7 +2721,7 @@ void radio_set_if_gain(int id, double value) {
   t_print("radio.c line 2721 - Set the IFGR\n");
   soapy_protocol_set_rx_gain_element(id, "IFGR", value);
 //#endif
-  }
+  //}
 
   //
   // If this is RX1, store value "by the band"

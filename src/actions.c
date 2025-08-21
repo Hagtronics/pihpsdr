@@ -482,7 +482,8 @@ int process_action(void *data) {
     break;
 
   case AGC_GAIN:
-    value = KnobOrWheel(a, active_receiver->agc_gain, -20.0, 120.0, 1.0);
+    // Hardcoded gains for RSP1B
+    value = KnobOrWheel(a, active_receiver->agc_gain, 20.0, 59, 1.0);
     radio_set_agc_gain(active_receiver->id, value);
     break;
 
