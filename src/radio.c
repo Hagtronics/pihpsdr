@@ -2705,10 +2705,10 @@ void radio_set_if_gain(int id, double value) {
   //if (!have_rx_gain) { return; }
 
   int rxadc = receiver[id]->adc;
-  adc[rxadc].ifgain = value;
+  adc[rxadc].if_gain = value;
   //adc[rxadc].attenuation = 0.0;
 
-  sliders_agc_gain(id, rxadc);
+  sliders_agc_gain(id);
 
   //if (radio_is_remote) {
   //  send_rfgain(client_socket, id, adc[rxadc].gain);
