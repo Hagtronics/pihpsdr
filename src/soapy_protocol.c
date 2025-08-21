@@ -1055,11 +1055,11 @@ void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
   char* rfgr = "RFGR";
   if(strcmp(name, rfgr) == 0 )
   {
-    if(gain > 9){
-      gain = 9;
+    if(gain > 9.0){
+      gain = 9.0;
     }
-    if(gain < 0){
-      gain = 0;
+    if(gain < 0.0){
+      gain = 0.0;
     }
   }
 
@@ -1085,6 +1085,9 @@ void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
   //
   // The overall gain has now changed. So we need to query it and set the gain
   //
+
+
+  // TODO Is this right now? Since .gain is now LNAstate = 0-9 - I don't know....
   adc[id].gain = SoapySDRDevice_getGain(soapy_device, SOAPY_SDR_RX, id);
 
 }

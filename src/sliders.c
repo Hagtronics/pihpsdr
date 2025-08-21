@@ -724,6 +724,9 @@ GtkWidget *sliders_init(int my_width, int my_height) {
   gtk_widget_show(af_gain_scale);
   gtk_grid_attach(GTK_GRID(sliders), af_gain_scale, s1pos, 0, swidth, 1);
   g_signal_connect(G_OBJECT(af_gain_scale), "value_changed", G_CALLBACK(afgain_value_changed_cb), NULL);
+
+
+
   label = gtk_label_new("AGC");
   gtk_widget_set_name(label, csslabel);
   gtk_widget_set_halign(label, GTK_ALIGN_END);
@@ -738,10 +741,14 @@ GtkWidget *sliders_init(int my_width, int my_height) {
   gtk_widget_set_size_request(agc_scale, 0, height / 2);
   gtk_widget_set_valign(agc_scale, GTK_ALIGN_CENTER);
   gtk_range_set_increments (GTK_RANGE(agc_scale), 1.0, 1.0);
-  gtk_range_set_value (GTK_RANGE(agc_scale), active_receiver->agc_gain);
+
+  //gtk_range_set_value (GTK_RANGE(agc_scale), active_receiver->agc_gain);
+  gtk_range_set_value (GTK_RANGE(agc_scale), adc[0].if_gain);
+
   gtk_widget_show(agc_scale);
   gtk_grid_attach(GTK_GRID(sliders), agc_scale, s2pos, 0, swidth, 1);
   g_signal_connect(G_OBJECT(agc_scale), "value_changed", G_CALLBACK(agcgain_value_changed_cb), NULL);
+
 
   if (have_rx_gain) {
     rf_gain_label = gtk_label_new("RF");
