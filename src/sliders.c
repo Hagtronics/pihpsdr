@@ -95,10 +95,26 @@ static void attenuation_value_changed_cb(GtkWidget *widget, gpointer data) {
   radio_set_attenuation(active_receiver->id, value);
 }
 
+
+
+// AGC To RF Gain Hack for RSP1B
+/* Was ...
 static void agcgain_value_changed_cb(GtkWidget *widget, gpointer data) {
   double value = gtk_range_get_value(GTK_RANGE(agc_scale));
   radio_set_agc_gain(active_receiver->id, value);
 }
+*/
+
+// Is,
+static void agcgain_value_changed_cb(GtkWidget *widget, gpointer data) {
+  double value = gtk_range_get_value(GTK_RANGE(agc_scale));
+  // radio_set_agc_gain(active_receiver->id, value);   // Was
+  // soapy_protocol_set_rx_gain_element(int id, char *name, double gain);  // Function Prototype
+  soapy_protocol_set_rx_gain_element(active_receiver->id, "IFGR", value);
+}
+
+
+
 
 static void afgain_value_changed_cb(GtkWidget *widget, gpointer data) {
   double value = gtk_range_get_value(GTK_RANGE(af_gain_scale));
