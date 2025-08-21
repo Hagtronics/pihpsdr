@@ -2715,12 +2715,12 @@ void radio_set_if_gain(int id, double value) {
   //  return;
   //}
 
-  if (protocol == SOAPYSDR_PROTOCOL) {
-#ifdef SOAPYSDR
+  //if (protocol == SOAPYSDR_PROTOCOL) {
+//#ifdef SOAPYSDR
     // soapy_protocol_set_rx_gain(id);
-    t_print("radio.c line 2721 - Set the IFGR\n");
-    soapy_protocol_set_rx_gain_element(id, "IFGR", value);
-#endif
+  t_print("radio.c line 2721 - Set the IFGR\n");
+  soapy_protocol_set_rx_gain_element(id, "IFGR", value);
+//#endif
   }
 
   //
