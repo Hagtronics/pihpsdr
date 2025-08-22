@@ -116,8 +116,6 @@ static void agcgain_value_changed_cb(GtkWidget *widget, gpointer data) {
 }
 
 
-
-
 static void afgain_value_changed_cb(GtkWidget *widget, gpointer data) {
   double value = gtk_range_get_value(GTK_RANGE(af_gain_scale));
   radio_set_af_gain(active_receiver->id, value);
