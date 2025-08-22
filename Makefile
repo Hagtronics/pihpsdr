@@ -443,6 +443,7 @@ PROGRAM=pihpsdr
 ##############################################################################
 
 SOURCES= \
+src/hw_agc_menu.c \
 src/iq_corr_menu.c \
 src/bias_t_menu.c \
 src/notch_menu.c \
@@ -535,6 +536,7 @@ src/zoompan.c
 ##############################################################################
 
 HEADERS= \
+src/hw_agc_menu.h \
 src/iq_corr_menu.h \
 src/bias_t_menu.h \
 src/notch_menu.h \
@@ -632,6 +634,7 @@ src/zoompan.h
 ##############################################################################
 
 OBJS= \
+src/hw_agc_menu.o \
 src/bias_t_menu.o \
 src/notch_menu.o \
 src/iq_corr_menu.o \
@@ -1282,3 +1285,4 @@ src/MacTTS.o: src/message.h
 src/bias_t_menu.o: src/soapy_protocol.h
 src/notch_menu.o: src/soapy_protocol.h
 src/iq_corr_menu.o: src/soapy_protocol.h
+src/hw_agc_menu.o: src/soapy_protocol.h
