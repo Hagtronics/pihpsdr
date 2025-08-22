@@ -1148,6 +1148,7 @@ void soapy_protocol_set_automatic_gain(int id, gboolean mode) {
   }
 }
 
+// For RSP1B
 void soapy_protocol_set_bias_t(RECEIVER *rx, gboolean mode) {
   ASSERT_SERVER();
   int rc;
@@ -1164,6 +1165,7 @@ void soapy_protocol_set_bias_t(RECEIVER *rx, gboolean mode) {
   }
 }
 
+// For RSP1B
 void soapy_protocol_set_rf_notch(RECEIVER *rx, gboolean mode) {
   ASSERT_SERVER();
   int rc;
@@ -1180,6 +1182,7 @@ void soapy_protocol_set_rf_notch(RECEIVER *rx, gboolean mode) {
   }
 }
 
+// For RSP1B
 void soapy_protocol_set_iq_corr(RECEIVER *rx, gboolean mode) {
   ASSERT_SERVER();
   int rc;
@@ -1194,5 +1197,26 @@ void soapy_protocol_set_iq_corr(RECEIVER *rx, gboolean mode) {
   if (rc != 0) {
     t_print("%s: SoapySDRDevice_set_iq_corr failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
   }
+}
+
+// For RSP1B
+void soapy_protocol_set_hw_agc(int id, gboolean mode) {
+// Lifted from: void soapy_protocol_set_automatic_gain(int id, gboolean mode) {
+  ASSERT_SERVER();
+  int rc;
+  t_print("Function fired: %s\n", __FUNCTION__);
+
+  rc = SoapySDRDevice_setGainMode(soapy_device, SOAPY_SDR_RX, id, mode);
+
+  if (rc != 0) {
+    t_print("%s: SoapySDRDevice_setGainMode failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
+  }
+}
+
+// For RSP1B
+void soapy_protocol_set_hw_agc_setpoint(int id, double setpoint) {
+  t_print("Function fired: %s\n", __FUNCTION__);
+  // TODO
+  // Limit setpoint to: -60, 0 range (default is -30)
 }
 
