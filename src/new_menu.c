@@ -759,7 +759,7 @@ void new_menu() {
     }
 
     GtkWidget *hw_agc_b = gtk_button_new_with_label("HW AGC");
-    g_signal_connect (hw_agc_cb, "button-press-event", G_CALLBACK(hw_agc_cb), NULL);
+    g_signal_connect (hw_agc_b, "button-press-event", G_CALLBACK(hw_agc_cb), NULL);
     gtk_grid_attach(GTK_GRID(grid), hw_agc_b, col, row, 1, 1);
     row++;
 
