@@ -50,6 +50,7 @@
 #include "new_protocol.h"
 #include "noise_menu.h"
 #include "bias_t_menu.h"
+#include "hw_agc_menu.h"
 #include "iq_corr_menu.h"
 #include "notch_menu.h"
 #include "old_protocol.h"
@@ -221,6 +222,12 @@ static gboolean cw_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) 
 static gboolean bias_t_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) {
   cleanup();
   bias_t_menu(top_window);
+  return TRUE;
+}
+
+static gboolean hw_agc_cb (GtkWidget *widget, GdkEventButton *event, gpointer data) {
+  cleanup();
+  hw_agc_menu(top_window);
   return TRUE;
 }
 
@@ -750,6 +757,12 @@ void new_menu() {
       gtk_grid_attach(GTK_GRID(grid), g2panel_b, col, row, 1, 1);
       row++;
     }
+
+    GtkWidget *hw_agc_b = gtk_button_new_with_label("HW AGC");
+    g_signal_connect (hw_agc_cb, "button-press-event", G_CALLBACK(hw_agc_cb), NULL);
+    gtk_grid_attach(GTK_GRID(grid), hw_agc_b, col, row, 1, 1);
+    row++;
+
 
     // cppcheck-suppress redundantAssignment
     row = maxrow;
