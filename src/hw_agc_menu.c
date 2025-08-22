@@ -42,7 +42,7 @@ static gboolean close_cb () {
 
 static void hw_agc_cb(GtkComboBox *widget, gpointer data) {
   hw_agc_state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-  soapy_protocol_set_hw_agc(active_receiver->id, state);
+  soapy_protocol_set_hw_agc(active_receiver->id, hw_agc_state);
 }
 
 
