@@ -1087,7 +1087,7 @@ void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
   //
 
 
-  // TODO Is this right now? Since .gain is now LNAstate = 0-9 - I don't know....
+  // TODO Is this right now? Since .gain is now LNAstate = 0-9 - I don't know how it was really meant to work.
   adc[id].gain = SoapySDRDevice_getGain(soapy_device, SOAPY_SDR_RX, id);
 
 }

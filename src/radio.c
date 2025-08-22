@@ -1549,7 +1549,7 @@ void radio_start_radio() {
 
   adc[0].antenna = 0;
   adc[0].attenuation = 0;
-  adc[0].gain = 0;
+  adc[0].gain = 4;
   adc[0].min_gain = 0.0;
   adc[0].max_gain = 100.0;
   adc[0].agc = 0;
@@ -1831,7 +1831,7 @@ void radio_start_radio() {
   adc[0].if_gain = 50;
   adc[0].if_min_gain = 20;
   adc[0].if_max_gain = 59;
-  t_print("DEBUG - Hardcoded Gains Here\n");
+  // t_print("DEBUG - Hardcoded Gains Here\n");
 
 }
 
@@ -2791,7 +2791,6 @@ void radio_set_agc_gain(int id, double value) {
   //if (protocol == SOAPYSDR_PROTOCOL) {
 //#ifdef SOAPYSDR
     // soapy_protocol_set_rx_gain(id);
-  t_print("radio.c line 2721 - Set the IFGR\n");
   soapy_protocol_set_rx_gain_element(id, "IFGR", value);
 //#endif
   //}
@@ -3219,6 +3218,14 @@ static void radio_restore_state() {
     bandRestoreState();
     memRestoreState();
     vfo_restore_state();
+
+    // Hardcode default gains RSP1B at startup
+    adc[0].gain = 4;
+    adc[0].min_gain = 0;
+    adc[0].max_gain = 9;
+    adc[0].if_gain = 50;
+    adc[0].if_min_gain = 20;
+    adc[0].if_max_gain = 59;
   }
 
   //
