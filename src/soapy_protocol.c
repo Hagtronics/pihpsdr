@@ -1001,7 +1001,7 @@ void soapy_protocol_set_rx_gain(int id) {
 }
 */
 
-// Is, should work for any SDR Play
+// Is, should work for any SDR Play - Do Nothing
 void soapy_protocol_set_rx_gain(int id) {
 
   // Do nothing
@@ -1074,8 +1074,6 @@ void soapy_protocol_set_rx_gain_element(int id, char *name, double gain) {
     }
   }
 
-
-  t_print("%s: id=%d %s=%f\n", __FUNCTION__, id, name, gain);
   rc = SoapySDRDevice_setGainElement(soapy_device, SOAPY_SDR_RX, id, name, gain);
 
   if (rc != 0) {
