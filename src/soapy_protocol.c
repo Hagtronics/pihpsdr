@@ -1206,10 +1206,17 @@ void soapy_protocol_set_hw_agc(int id, gboolean mode) {
   int rc;
   t_print("Function fired: %s\n", __FUNCTION__);
 
+
   rc = SoapySDRDevice_setGainMode(soapy_device, SOAPY_SDR_RX, id, mode);
 
   if (rc != 0) {
-    t_print("%s: SoapySDRDevice_setGainMode failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
+    t_print("%s: SoapySDRDevice_setGainMode call failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
+  }
+
+  rc = SoapySDRDevice_writeSetting(soapy_device, "agc_setpoint", "-30");
+
+  if (rc != 0) {
+    t_print("%s: SoapySDRDevice_writeSetting call failed: %s\n", __FUNCTION__, SoapySDR_errToStr(rc));
   }
 }
 
