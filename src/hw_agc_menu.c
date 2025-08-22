@@ -71,7 +71,7 @@ void hw_agc_menu(GtkWidget *parent) {
 
   GtkWidget *hw_agc_b = gtk_check_button_new_with_label("Enable HW AGC");
   gtk_widget_set_name(hw_agc_b, "boldlabel");
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (hw_agc_c), hw_agc_state);
+  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON (hw_agc_b), hw_agc_state);
   gtk_grid_attach(GTK_GRID(grid), hw_agc_b, 0, row, 1, 1);
   g_signal_connect(hw_agc_b, "toggled", G_CALLBACK(hw_agc_cb), NULL);
 
