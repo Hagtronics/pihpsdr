@@ -103,33 +103,33 @@ async def tune_buttons(midi_cmd, encoder_functions):
 
         if event:
             if event.released:
-		if encoder_functions.function[0] == 'ZOOM':
-		    # print(f'Button={event.key_number}')
-		    # Tune +
-		    if event.key_number == 0:
-		        midi_cmd.type = "NOTE"
-		        midi_cmd.control_number = 1
-		        midi_cmd.command_ready = True
+                if encoder_functions.function[0] == 'ZOOM':
+                    # print(f'Button={event.key_number}')
+                    # Tune +
+                    if event.key_number == 0:
+                        midi_cmd.type = "NOTE"
+                        midi_cmd.control_number = 1
+                        midi_cmd.command_ready = True
 
-		    # Tune -
-		    elif event.key_number == 1:
-		        midi_cmd.type = "NOTE"
-		        midi_cmd.control_number = 2
-		        midi_cmd.command_ready = True
+                    # Tune -
+                    elif event.key_number == 1:
+                        midi_cmd.type = "NOTE"
+                        midi_cmd.control_number = 2
+                        midi_cmd.command_ready = True
 
-		elif encoder_functions.function[0] == 'RIT':
-		    # print(f'Button={event.key_number}')
-		    # RIT +
-		    if event.key_number == 0:
-		        midi_cmd.type = "NOTE"
-		        midi_cmd.control_number = 20
-		        midi_cmd.command_ready = True
+                elif encoder_functions.function[0] == 'RIT':
+                    # print(f'Button={event.key_number}')
+                    # RIT +
+                    if event.key_number == 0:
+                        midi_cmd.type = "NOTE"
+                        midi_cmd.control_number = 20
+                        midi_cmd.command_ready = True
 
-		    # RIT -
-		    elif event.key_number == 1:
-		        midi_cmd.type = "NOTE"
-		        midi_cmd.control_number = 21
-		        midi_cmd.command_ready = True
+                    # RIT -
+                    elif event.key_number == 1:
+                        midi_cmd.type = "NOTE"
+                        midi_cmd.control_number = 21
+                        midi_cmd.command_ready = True
 
         await asyncio.sleep(0)
 
@@ -149,10 +149,10 @@ async def encoder_buttons(enc_functions):
     while True:
         event = encoder_buttons.events.get()
 
-	if event and event.released:
+        if event and event.released:
 
         # Encoder 0 - ZOOM / RIT
-	    if event.key_number == 0:
+            if event.key_number == 0:
                 if enc_functions.function[0] == "ZOOM":
                     enc_functions.function[0] = "RIT"
                 else:
@@ -272,7 +272,7 @@ async def encoder_2(midi_cmd, encoder_functions):
     # Setup
     rf_value = 0
     agc_value = 0
-    sensitivity = 5
+    sensitivity = 4
 
     encoder = rotaryio.IncrementalEncoder(board.GP11, board.GP12, divisor=4)
 
@@ -308,7 +308,7 @@ async def encoder_2(midi_cmd, encoder_functions):
                     midi_cmd.command_ready = True
 
                 elif position_change < 0:
-                    agc_value = limit_encoder_range(rf_value - sensitivity)
+                    agc_value = limit_encoder_range(agc_value - sensitivity)
                     midi_cmd.type = "CC"
                     midi_cmd.control_number = 13
                     midi_cmd.value = agc_value
