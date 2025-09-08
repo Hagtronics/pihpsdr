@@ -1,7 +1,7 @@
 """
 SDR9000 MIDI Controller
 
-    Steve Hageman, July 2025
+    Steve Hageman, July - Sept 2025
 
     # Modification to add +/- RIT to Tune Buttons Linked to Zoom Press
 
@@ -40,7 +40,7 @@ class MidiCommand():
 class EncoderFunctions():
     def __init__(self):
         self.function = []
-        self.function.append("ZOOM")  # Zoom or RIT
+        self.function.append("ZOOM")  # Zoom or BW
         self.function.append("AF")  # AF or SQL
         self.function.append("RF")  # RF or AGC
         self.function.append("PAN_L")  # PAN_L or PAN_H
@@ -103,33 +103,17 @@ async def tune_buttons(midi_cmd, encoder_functions):
 
         if event:
             if event.released:
-                if encoder_functions.function[0] == 'ZOOM':
-                    # print(f'Button={event.key_number}')
-                    # Tune +
-                    if event.key_number == 0:
-                        midi_cmd.type = "NOTE"
-                        midi_cmd.control_number = 1
-                        midi_cmd.command_ready = True
+                # Tune +
+                if event.key_number == 0:
+                    midi_cmd.type = "NOTE"
+                    midi_cmd.control_number = 1
+                    midi_cmd.command_ready = True
 
-                    # Tune -
-                    elif event.key_number == 1:
-                        midi_cmd.type = "NOTE"
-                        midi_cmd.control_number = 2
-                        midi_cmd.command_ready = True
-
-                elif encoder_functions.function[0] == 'RIT':
-                    # print(f'Button={event.key_number}')
-                    # RIT +
-                    if event.key_number == 0:
-                        midi_cmd.type = "NOTE"
-                        midi_cmd.control_number = 20
-                        midi_cmd.command_ready = True
-
-                    # RIT -
-                    elif event.key_number == 1:
-                        midi_cmd.type = "NOTE"
-                        midi_cmd.control_number = 21
-                        midi_cmd.command_ready = True
+                # Tune -
+                elif event.key_number == 1:
+                    midi_cmd.type = "NOTE"
+                    midi_cmd.control_number = 2
+                    midi_cmd.command_ready = True
 
         await asyncio.sleep(0)
 
@@ -151,15 +135,12 @@ async def encoder_buttons(enc_functions):
 
         if event and event.released:
 
-        # Encoder 0 - ZOOM / RIT
             if event.key_number == 0:
                 if enc_functions.function[0] == "ZOOM":
-                    enc_functions.function[0] = "RIT"
+                    enc_functions.function[0] = "BW"
                 else:
                     enc_functions.function[0] = "ZOOM"
 
-
-        # Encoder 1 - AF / AGC
             elif event.key_number == 1:
                 if enc_functions.function[1] == "AF":
                     enc_functions.function[1] = "SQL"
@@ -181,14 +162,40 @@ async def encoder_buttons(enc_functions):
         await asyncio.sleep(0)
 
 
-# Process encoder 0 = Zoom
+# Process encoder 0 = Zoom / Bandwidth
 async def encoder_0(midi_cmd, encoder_functions):
 
     # Setup
     z_value = 0
-    sensitivity = 10 # was 4
+    z_sensitivity = 10
+    bw_value = 0
+    bw_sensitivity = 1
 
     encoder = rotaryio.IncrementalEncoder(board.GP1, board.GP2, divisor=4)
+
+    # last_position = 0
+    # while True:
+    #     current_position = encoder.position
+    #     position_change = current_position - last_position
+    #     last_position = current_position
+
+    #     if position_change != 0:
+
+    #         if position_change > 0:
+    #             z_value = limit_encoder_range(z_value + z_sensitivity)
+    #             midi_cmd.type = "CC"
+    #             midi_cmd.control_number = 9
+    #             midi_cmd.value = z_value
+    #             midi_cmd.command_ready = True
+
+    #         elif position_change < 0:
+    #             z_value = limit_encoder_range(z_value - z_sensitivity)
+    #             midi_cmd.type = "CC"
+    #             midi_cmd.control_number = 9
+    #             midi_cmd.value = z_value
+    #             midi_cmd.command_ready = True
+
+    #     await asyncio.sleep(0)
 
     last_position = 0
     while True:
@@ -198,19 +205,35 @@ async def encoder_0(midi_cmd, encoder_functions):
 
         if position_change != 0:
 
-            if position_change > 0:
-                z_value = limit_encoder_range(z_value + sensitivity)
-                midi_cmd.type = "CC"
-                midi_cmd.control_number = 9
-                midi_cmd.value = z_value
-                midi_cmd.command_ready = True
+            if encoder_functions.function[0] == "ZOOM":
+                if position_change > 0:
+                    z_value = limit_encoder_range(z_value + z_sensitivity)
+                    midi_cmd.type = "CC"
+                    midi_cmd.control_number = 9
+                    midi_cmd.value = z_value
+                    midi_cmd.command_ready = True
 
-            elif position_change < 0:
-                z_value = limit_encoder_range(z_value - sensitivity)
-                midi_cmd.type = "CC"
-                midi_cmd.control_number = 9
-                midi_cmd.value = z_value
-                midi_cmd.command_ready = True
+                elif position_change < 0:
+                    z_value = limit_encoder_range(z_value - z_sensitivity)
+                    midi_cmd.type = "CC"
+                    midi_cmd.control_number = 9
+                    midi_cmd.value = z_value
+                    midi_cmd.command_ready = True
+
+            elif encoder_functions.function[0] == "BW":
+                if position_change > 0:
+                    bw_value = limit_encoder_range(bw_value + bw_sensitivity)
+                    midi_cmd.type = "CC"
+                    midi_cmd.control_number = 16
+                    midi_cmd.value = bw_value
+                    midi_cmd.command_ready = True
+
+                elif position_change < 0:
+                    bw_value = limit_encoder_range(bw_value - bw_sensitivity)
+                    midi_cmd.type = "CC"
+                    midi_cmd.control_number = 16
+                    midi_cmd.value = bw_value
+                    midi_cmd.command_ready = True
 
         await asyncio.sleep(0)
 
