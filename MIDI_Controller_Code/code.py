@@ -40,10 +40,10 @@ class MidiCommand():
 class EncoderFunctions():
     def __init__(self):
         self.function = []
-        self.function.append("ZOOM")  # Zoom or BW
-        self.function.append("AF")  # AF or SQL
-        self.function.append("RF")  # RF or AGC
-        self.function.append("PAN_L")  # PAN_L or PAN_H
+        self.function.append("ZOOM")  # Zoom or BW        Index = 0
+        self.function.append("AF")  # AF or SQL           Index = 1
+        self.function.append("RF")  # RF or AGC           Index = 2
+        self.function.append("PAN_L")  # PAN_L or PAN_H   Index = 3
 
 
 # Used to determine the Main Tuning Encoder rate of change
@@ -169,33 +169,9 @@ async def encoder_0(midi_cmd, encoder_functions):
     z_value = 0
     z_sensitivity = 10
     bw_value = 0
-    bw_sensitivity = 1
+    bw_sensitivity = 4
 
     encoder = rotaryio.IncrementalEncoder(board.GP1, board.GP2, divisor=4)
-
-    # last_position = 0
-    # while True:
-    #     current_position = encoder.position
-    #     position_change = current_position - last_position
-    #     last_position = current_position
-
-    #     if position_change != 0:
-
-    #         if position_change > 0:
-    #             z_value = limit_encoder_range(z_value + z_sensitivity)
-    #             midi_cmd.type = "CC"
-    #             midi_cmd.control_number = 9
-    #             midi_cmd.value = z_value
-    #             midi_cmd.command_ready = True
-
-    #         elif position_change < 0:
-    #             z_value = limit_encoder_range(z_value - z_sensitivity)
-    #             midi_cmd.type = "CC"
-    #             midi_cmd.control_number = 9
-    #             midi_cmd.value = z_value
-    #             midi_cmd.command_ready = True
-
-    #     await asyncio.sleep(0)
 
     last_position = 0
     while True:
@@ -360,32 +336,32 @@ async def encoder_3(midi_cmd, encoder_functions):
 
             if encoder_functions.function[3] == "PAN_L":
                 if position_change > 0:
-                    pan_h_value = limit_encoder_range(pan_h_value + sensitivity)
-                    midi_cmd.type = "CC"
-                    midi_cmd.control_number = 14
-                    midi_cmd.value = pan_h_value
-                    midi_cmd.command_ready = True
-
-                elif position_change < 0:
-                    pan_h_value = limit_encoder_range(pan_h_value - sensitivity)
-                    midi_cmd.type = "CC"
-                    midi_cmd.control_number = 14
-                    midi_cmd.value = pan_h_value
-                    midi_cmd.command_ready = True
-
-            elif encoder_functions.function[3] == "PAN_H":
-                if position_change > 0:
                     pan_l_value = limit_encoder_range(pan_l_value + sensitivity)
                     midi_cmd.type = "CC"
-                    midi_cmd.control_number = 15
+                    midi_cmd.control_number = 14
                     midi_cmd.value = pan_l_value
                     midi_cmd.command_ready = True
 
                 elif position_change < 0:
                     pan_l_value = limit_encoder_range(pan_l_value - sensitivity)
                     midi_cmd.type = "CC"
-                    midi_cmd.control_number = 15
+                    midi_cmd.control_number = 14
                     midi_cmd.value = pan_l_value
+                    midi_cmd.command_ready = True
+
+            elif encoder_functions.function[3] == "PAN_H":
+                if position_change > 0:
+                    pan_h_value = limit_encoder_range(pan_h_value + sensitivity)
+                    midi_cmd.type = "CC"
+                    midi_cmd.control_number = 15
+                    midi_cmd.value = pan_h_value
+                    midi_cmd.command_ready = True
+
+                elif position_change < 0:
+                    pan_h_value = limit_encoder_range(pan_h_value - sensitivity)
+                    midi_cmd.type = "CC"
+                    midi_cmd.control_number = 15
+                    midi_cmd.value = pan_h_value
                     midi_cmd.command_ready = True
 
         await asyncio.sleep(0)
@@ -415,10 +391,6 @@ async def tune_rate(rate):
 # Reads the Main Tuning Encoder and using the rate at which it is bring tuned
 async def tune_encoder(midi_cmd, rate):
 
-    # TODO Debug code - remove
-    led = digitalio.DigitalInOut(board.GP16)
-    led.direction = digitalio.Direction.OUTPUT
-
     # Setup
     tuning = rotaryio.IncrementalEncoder(board.GP8, board.GP9, divisor=4)
 
@@ -441,9 +413,6 @@ async def tune_encoder(midi_cmd, rate):
             midi_cmd.command_ready = True
 
         last_position = current_position
-
-        # TODO Debug code - remove
-        led.value = not led.value
 
         await asyncio.sleep(0)
 
